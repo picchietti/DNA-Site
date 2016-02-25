@@ -1,0 +1,9 @@
+{
+  "name": "DNA Discovery",
+  "short_name": "DNA Discovery",
+  "icons":
+    [{
+      "src": "favicon.png",
+      "type": "image/png"
+    }]
+}
