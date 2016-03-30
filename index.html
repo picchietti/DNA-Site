@@ -9,7 +9,6 @@
 	<meta name="author" content="Becky Patrick RN">
 	<link rel="shortcut icon" href="//dnadiscovery.net/favicon.png">
 	<link rel="stylesheet" href="/main.css">
-
 	<link rel="stylesheet" href="/lib/fa/css/font-awesome.min.css">
 	<link rel="manifest" href="/manifest.json">
 </head>
@@ -76,7 +75,7 @@
 			<div class="content">
 				<div class="alignc"><div class="title">Services</div></div>
 
-				<div id="services">
+				<div id="all-services">
 					<div class="service clickable" onclick="Toggle.openPopup('Standard DNA Paternity', 'standard-paternity')">
 						<div class="test">Standard DNA Paternity</div>
 						<div class="composite-icon">
@@ -214,7 +213,7 @@
 				<div style="overflow:auto;margin:0 auto;">
 					<div id="contain-contact">
 						<h4>Our Info</h4>
-						<table id="contact">
+						<table id="contact-info">
 							<tr>
 								<td>Email</td>
 								<td><a href="mailto:questions@dnadiscovery.net">questions@dnadiscovery.net</a></td>
@@ -232,17 +231,8 @@
 								<td>217-398-2904</td>
 							</tr>
 						</table>
-						<!-- <h4>Hours of Operation</h4>
-						<table id="hours">
-							<tr>
-								<td>Mon - Fri</td>
-								<td>Time</td>
-							</tr>
-							<tr>
-								<td>Sat - Sun</td>
-								<td>Time</td>
-							</tr>
-						</table> -->
+						<h4>Hours</h4>
+						<div class="alignc">Monday thru Saturday from 8am to 6pm</div>
 					</div>
 					<div id="map">
 						<a href="https://www.google.com/maps?ll=40.099011,-88.309181&z=16&t=m&hl=en-US&gl=US&mapclient=embed&q=1518+Bridge+Point+Ln+Champaign,+IL+61822" target="_blank"><img src="img/map.png" id="map" alt="Map"></a>
@@ -273,5 +263,6 @@
 
 	<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 	<script src="scripts/analytics.js"></script>
+	<script src="/lib/underscore.min.js"></script>
 	<script src="scripts/main.js"></script>
 </body></html>
