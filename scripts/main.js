@@ -137,7 +137,14 @@ function checkUrl(){
 		Pager.scroll(pagenum);
 }
 
+function addNavClicks(){
+	var items = $('menu-list').getElementsByTagName('span');
+	for(var i=0, y=items.length;i<y;i++)
+		items[i].addEventListener('click', _.bind(Pager.scroll, Pager, i+1), true);
+}
+
 window.addEventListener('DOMContentLoaded', function(){
+	addNavClicks();
 	$("menu").addEventListener("click", Toggle.menu, false);
 	$("close-popup").addEventListener("click", Toggle.closePopup, false);
 	addQAClicks();

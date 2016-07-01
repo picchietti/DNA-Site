@@ -12,12 +12,16 @@ html, body{
 a{color:#8000ff;text-decoration:none;}
 a:hover{text-decoration:underline;}
 
-.alignc{text-align: center;}
-.alignr{text-align: right;}
-.pull-left{float: left;}
-.pull-right{float: right;}
-.contain{overflow: auto;}
+.alignc{text-align:center;}
+.alignr{text-align:right;}
+.pull-left{float:left;}
+.pull-right{float:right;}
+.contain{overflow:auto;}
 .hide, .mobile{display:none;}
+
+.goog-te-banner-frame{
+	top: 42px !important; 
+}
 
 #header{
 	position:fixed;
@@ -128,6 +132,12 @@ background-position: 49% 50%;
 .answer{
 	margin:20px 0;
 	margin-left:30px;
+}
+
+.hint{
+	margin-top:20px;
+	font-size:11pt;
+	font-family:'Courier New';
 }
 
 #partner-logo, #bbb{
