@@ -20,7 +20,7 @@ a:hover{text-decoration:underline;}
 .hide, .mobile{display:none;}
 
 .goog-te-banner-frame{
-	top: 42px !important; 
+	top: 42px !important;
 }
 
 #header{
@@ -361,6 +361,18 @@ background-position: 49% 50%;
 	margin-top: 8px;
 	overflow:auto;
 	max-height:230px;
+}
+
+.open-hours, .closed-hours{
+	padding: 4px;
+}
+
+.open-hours{
+	background-color: #90ee90;
+}
+
+.closed-hours{
+	background-color: #f08080;
 }
 
 

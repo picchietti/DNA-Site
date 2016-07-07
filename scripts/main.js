@@ -137,6 +137,28 @@ function checkUrl(){
 		Pager.scroll(pagenum);
 }
 
+var prev_open, interval = null
+function checkOpenClosed(){
+	var datetime = new Date(2016, 6, 4, 16, 0);
+	var day_of_week = datetime.getDay();
+	if(day_of_week !== 0){
+		var hour = datetime.getHours();
+		var open = hour > 7 && hour < 18;
+	}
+	else{
+		var open = false;
+	}
+
+	if(prev_open == null || prev_open != open){
+		var ele = $('open-closed');
+		ele.innerHTML = (open) ? 'Open' : 'Closed';
+		ele.className = (open) ? 'open-hours' : 'closed-hours';
+		prev_open = open;
+	}
+
+	interval = interval || setInterval(checkOpenClosed, 60000);
+}
+
 function addNavClicks(){
 	var items = $('menu-list').getElementsByTagName('span');
 	for(var i=0, y=items.length;i<y;i++)
@@ -149,7 +171,8 @@ window.addEventListener('DOMContentLoaded', function(){
 	$("close-popup").addEventListener("click", Toggle.closePopup, false);
 	addQAClicks();
 	checkUrl();
-	window.addEventListener('scroll', sharableUrl, false)
+	checkOpenClosed();
+	window.addEventListener('scroll', sharableUrl, false);
 }, false)
 
 window.addEventListener('load', function(){
