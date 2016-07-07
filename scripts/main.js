@@ -139,7 +139,7 @@ function checkUrl(){
 
 var prev_open, interval = null
 function checkOpenClosed(){
-	var datetime = new Date(2016, 6, 4, 16, 0);
+	var datetime = new Date();
 	var day_of_week = datetime.getDay();
 	if(day_of_week !== 0){
 		var hour = datetime.getHours();
