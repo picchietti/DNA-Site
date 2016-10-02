@@ -56,17 +56,15 @@ var Pager={
 	},
 };
 
-function nextElement(el) {
-    if (el.nextElementSibling) return el.nextElementSibling;
-    do { el = el.nextSibling } while (el && el.nodeType !== 1);
-    return el;
-}
-
 function addQAClicks(){
 	y = document.getElementsByClassName('q');
 	for(var i=0;i<y.length;i++){
 		y[i].addEventListener('click', function(){
-			var ans = nextElement(this);
+			var ans = this.nextElementSibling;
+
+			if(!ans)
+				return;
+
 			if(ans.style.display != 'block')
 				ans.style.display = 'block';
 			else
@@ -114,14 +112,20 @@ var sharableUrl = _.debounce(function() {
 	var header_height = $('header').clientHeight;
 	for(var i=0, y=pages.length;i<=y;i++){
 		if(ele.scrollTop + header_height <= total){
+			var current_page = $('current-page');
+			if(current_page != null)
+				current_page.id = null;
+
 			if(i == 0){
 				if(history.replaceState)
 					history.replaceState('', document.title, window.location.pathname);
 				else
 					location.hash = '';
 			}
-			else
+			else{
 				location.hash = Pager.name_map[i];
+				$('menu-list').children[i - 1].id = 'current-page';
+			}
 
 			break;
 		}

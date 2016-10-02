@@ -9,7 +9,7 @@ html, body{
 	font-family: Arial;
 }
 
-a{color:#8000ff;text-decoration:none;}
+a, .q{color:#2196F3;text-decoration:none;}
 a:hover{text-decoration:underline;}
 
 .alignc{text-align:center;}
@@ -30,17 +30,22 @@ a:hover{text-decoration:underline;}
 	width:100%;
 	min-height:32px;
 	padding-top:10px;
-	background-color:#DFEEFC;
+	background-color:#E3F2FD;
 }
 #header .items{
 	text-transform:uppercase;
 	font-weight:bold;
 	font-family: arial;
 	float:left;
-}
-#header .items span{
-	cursor:pointer;
-	margin:0 20px;
+
+	span{
+		cursor:pointer;
+		margin:0 20px;
+	}
+	span#current-page{
+		color: #673AB7;
+		transition: color .7s linear;
+	}
 }
 
 .mobile #menu.fa.fa-bars{
@@ -224,7 +229,6 @@ a:hover{text-decoration:underline;}
 }
 .q{
 	font-weight:bold;
-	color:#547a8a;
 	display:inline;
 	vertical-align:middle;
 	cursor:pointer;
