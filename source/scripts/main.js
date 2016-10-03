@@ -1,28 +1,29 @@
-//onscroll in opposite direction, cancel auto scroll.
-
 function $(id){
 	return document.getElementById(id);
 }
 
+var scrollable = function(){
+	var prev = document.documentElement.scrollTop || document.body.scrollTop;
+	document.body.scrollTop = 1;
+
+	if (document.body.scrollTop != 0)
+		var ele = document.body;
+	else
+		var ele = document.documentElement;
+
+	ele.scrollTop = prev;
+	return ele;
+}();
+
 var Pager={
-	to:0,
-	prev:null,
+	to: 0,
+	prev: null,
 	name_map: [null, 'about', 'accuracy', 'services', 'faq', 'contact'],
+	scroll_interval: null,
 
 	scroll:function(pagenum){
 		var menu_list = $('menu-list');
 		menu_list.classList.add('hide-mobile');
-
-		this.prev = document.documentElement.scrollTop || document.body.scrollTop;
-		// document.documentElement.scrollTop=1;
-		document.body.scrollTop = 1;
-
-		if (document.body.scrollTop != 0)
-			var ele = document.body;
-		else
-			var ele = document.documentElement;
-
-		ele.scrollTop = this.prev;
 
 		var total=$("home").clientHeight, pages=document.getElementsByClassName("page");
 		for(var i=0, y=pagenum-1;i<y;i++)
@@ -31,24 +32,25 @@ var Pager={
 		this.to = total;
 
 		// for spam clicking
-		var interval1, interval2;
-		clearInterval(interval1);
-		clearInterval(interval2);
+		clearInterval(this.scroll_interval);
 
-		if(ele.scrollTop < total){ // scroll down
-			interval1 = setInterval(function(){
-				if(ele.scrollTop >= Pager.to || (ele.scrollHeight - ele.scrollTop) == ele.clientHeight)
-					clearInterval(interval1);
+		// to check if user changed scroll position since last interval
+		var last_y = scrollable.scrollTop;
+
+		if(scrollable.scrollTop < total){ // scroll down
+			this.scroll_interval = setInterval(function(){
+				if(scrollable.scrollTop < last_y || scrollable.scrollTop >= Pager.to || (scrollable.scrollHeight - scrollable.scrollTop) == scrollable.clientHeight)
+					clearInterval(Pager.scroll_interval);
 				else
-					ele.scrollTop += ((Pager.to - ele.scrollTop) * 0.1) + 3;
+					last_y = scrollable.scrollTop += Math.ceil((Pager.to - scrollable.scrollTop) * 0.1);
 			},30);
 		}
-		else if(ele.scrollTop > total){ // scroll up
-			interval2=setInterval(function(){
-				if(ele.scrollTop <= Pager.to)
-					clearInterval(interval2);
+		else if(scrollable.scrollTop > total){ // scroll up
+			this.scroll_interval = setInterval(function(){
+				if(scrollable.scrollTop > last_y || scrollable.scrollTop <= Pager.to)
+					clearInterval(Pager.scroll_interval);
 				else
-					ele.scrollTop -= ((ele.scrollTop - Pager.to) * 0.1) + 3;
+					last_y = scrollable.scrollTop -= Math.ceil((scrollable.scrollTop - Pager.to) * 0.1);
 			},30);
 		}
 		else // equal. finished.
@@ -97,24 +99,14 @@ function googleTranslateElementInit() {
 }
 
 var sharableUrl = _.debounce(function() {
-	var prev = document.documentElement.scrollTop || document.body.scrollTop;
-	document.body.scrollTop = 1;
-
-	if (document.body.scrollTop != 0)
-		var ele = document.body;
-	else
-		var ele = document.documentElement;
-
-	ele.scrollTop = prev;
-
-	var total=$("home").clientHeight;
-	var pages=document.getElementsByClassName("page");
+	var total = $("home").clientHeight;
+	var pages = document.getElementsByClassName("page");
 	var header_height = $('header').clientHeight;
 	for(var i=0, y=pages.length;i<=y;i++){
-		if(ele.scrollTop + header_height <= total){
+		if(scrollable.scrollTop + header_height <= total){
 			var current_page = $('current-page');
 			if(current_page != null)
-				current_page.id = null;
+				current_page.removeAttribute('id');
 
 			if(i == 0){
 				if(history.replaceState)
