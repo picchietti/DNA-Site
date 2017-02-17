@@ -12,10 +12,9 @@ var jsonminify = require('gulp-jsonminify');
 var del = require('del');
 var glob = require("glob");
 
-var home = process.env['HOME'];
-var path_one_up = home + '/Desktop/github/';
-var path_input = path_one_up + 'dnadiscovery.net/source';
-var path_output = path_one_up + 'dnadiscovery.net';
+var path_input = process.env['PWD'];
+var path_output = path_input.substring(0, path_input.lastIndexOf('/'));
+var path_one_up = path_output.substring(0, path_output.lastIndexOf('/')) + '/';
 var path_input_slash = path_input + '/';
 var path_output_slash = path_output + '/';
 
@@ -26,17 +25,23 @@ function array_diff(a, b){
 }
 
 gulp.task('clean', function() {
-  // removes files from release that are no longer in source
-  var files_release = glob.sync('!' + path_input_slash, {
+  // removes files from output that are no longer in input
+  var files_output = glob.sync('**/*', {
     dot: true,
-    cwd: path_output_slash
+    cwd: path_output_slash,
+    ignore: [ // always in dot: true mode
+      'source',
+      'source/**/*',
+      '.git',
+      '.git/**/*'
+    ]
   });
-  var files_server = glob.sync('**/*', {
+  var files_input = glob.sync('**/*', {
     dot: true,
     cwd: path_input_slash
   });
 
-  var to_delete = array_diff(files_release, files_server);
+  var to_delete = array_diff(files_output, files_input);
 
   to_delete = to_delete.map(function(file){
     return path_output_slash + file
@@ -131,7 +136,6 @@ gulp.task('watch', function(){
   // one giant watch all that checks the extension and the event to determine the action to take for the file.
   gulp.watch([
     path_input_slash + '**/*'
-    // '!' + 'server/' + '/google1341bc3277bdc766.html' // not likely to ever be added, renamed, removed, changed
   ], {cwd: path_one_up}, function(event){
     var dest_file = event.path.replace(path_input, path_output);
     var dest_path = dest_file.substring(0, dest_file.lastIndexOf("/"));
