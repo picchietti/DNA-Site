@@ -147,7 +147,7 @@ function checkOpenClosed(){
 
 	if(prev_open == null || prev_open != open){
 		var ele = $('open-closed');
-		ele.innerHTML = (open) ? 'Open' : 'Closed';
+		ele.innerHTML = (open) ? 'open' : 'closed';
 		ele.className = (open) ? 'open-hours' : 'closed-hours';
 		prev_open = open;
 	}
